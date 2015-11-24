@@ -9,6 +9,7 @@ class Api1 extends lapis.Application
   "/save-score": capture_errors_json respond_to {
     POST: =>
       import Scores from require "models"
-      json: { success: true }
+      ngx.req.read_body!
+      data = assert ngx.req.get_body_data!
+      json: { success: true, :data }
   }
-
