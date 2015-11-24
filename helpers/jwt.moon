@@ -23,20 +23,19 @@ normalize_b64 = (str) ->
 
 parse_jwt = (str) ->
   parts = [chunk for chunk in str\gmatch "[^%.]+"]
-  header, payload, signature = unpack parts
+  raw_header, payload, signature = unpack parts
 
-  expected_signature = encode_base64 hmac_sha256 SECRET, "#{header}.#{payload}"
-
-  unless expected_signature == normalize_b64 signature
-    return nil, "invalid signature"
-
-  header = decode_base64 normalize_b64 header
+  header = decode_base64 normalize_b64 raw_header
   header = from_json header
 
   return nil, "header not JWT" unless header.typ == "JWT"
   return nil, "header not HS256" unless header.alg == "HS256"
 
+  expected_signature = encode_base64 hmac_sha256 SECRET, "#{raw_header}.#{payload}"
+  unless expected_signature == normalize_b64 signature
+    return nil, "invalid signature"
+
   payload = decode_base64 normalize_b64 payload
-  from_json payload
+  from_json(payload), header
 
 {:parse_jwt, :add_padding}
