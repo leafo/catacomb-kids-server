@@ -11,8 +11,10 @@ describe "applications.api1", ->
     truncate_tables Scores
 
   it "submits a score", ->
-    request "/api/1/save-score", {
+    status, res = request "/api/1/save-score", {
       method: "POST"
       data: "hello world"
       expect: "json"
     }
+
+    error res

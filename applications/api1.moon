@@ -1,6 +1,8 @@
 lapis = require "lapis"
 
-import capture_errors_json, respond_to from require "lapis.application"
+import capture_errors_json, respond_to, assert_error from require "lapis.application"
+import parse_jwt from require "helpers.jwt"
+import from_json from require "lapis.util"
 
 class Api1 extends lapis.Application
   @name: "api."
@@ -11,5 +13,16 @@ class Api1 extends lapis.Application
       import Scores from require "models"
       ngx.req.read_body!
       data = assert ngx.req.get_body_data!
+
+      payload = assert_error parse_jwt data
+      content = assert_error payload.content, "missing content"
+
+      from_json content -- assert that it's correctly formatted json
+
+      Scores\create {
+        raw_data: content
+        ip: ngx.var.remote_addr or nil
+      }
+
       json: { success: true, :data }
   }
