@@ -1,5 +1,7 @@
 lapis = require "lapis"
 
 class extends lapis.Application
+  @include "applications.api1"
+
   "/": =>
-    "Welcome to Lapis #{require "lapis.version"}!"
+    "Welcome to catacomb kids server"
