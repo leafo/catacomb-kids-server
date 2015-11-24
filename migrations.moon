@@ -14,6 +14,7 @@ import add_column, create_index, drop_index, drop_column, create_table from sche
     create_table "scores", {
       {"id", serial}
       {"raw_data", "jsonb not null"}
+      {"ip", varchar}
 
       {"created_at", time}
       {"updated_at", time}
