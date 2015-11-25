@@ -1,0 +1,670 @@
+/* Lazy reset */
+html, body {
+	margin: 0;
+	padding: 0;
+}
+html {
+	height:100%;
+}
+*, *:after, *:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color:#000;
+	/*background:url("media/body-bg.png") center center repeat-y;*/
+	background-image:url("media/body-bg.png"), url("media/bgbricks.png");
+	/*background-repeat: no-repeat;*/
+	background-repeat: repeat-y, repeat;
+	background-position:50% 0, 50% 0;
+	/*url("media/bgbricks.png");*/
+
+	color: #fff;
+
+	min-height: 100%;
+}
+/* Text and sizes */
+h1 {
+	font-family: 'Open Sans', sans-serif;
+	text-transform: uppercase;
+	/*font-style: italic;*/
+	font-weight: bold;
+	font-size:32pt;
+}
+h2 {
+	font-family: 'Open Sans', sans-serif;
+	text-transform: uppercase;
+	/*font-style: italic;*/
+	font-weight: bold;
+	font-size: 24pt;
+}
+h4 {
+	font-family: 'Open Sans', sans-serif;
+	text-transform: uppercase;
+	line-height: 110%
+	/*font-style:italic;*/
+	font-weight: bold;
+	font-size:18pt;
+}
+h5 {
+	font-family: 'Open Sans', helvetica, arial, sans-serif;
+	font-weight: normal;
+	font-size: 16pt;
+}
+p, li {
+	font-family: 'Open Sans', helvetica, arial, sans-serif;
+	font-size: 14pt;
+}
+a, a:visited {color: #fff;}
+
+
+#container {
+	width: 960px;
+	min-height:100%;
+	margin: 0 auto;
+	position: relative;
+	background-color: #000;
+	/*box-shadow: 20px 0px 10px -10px #020202, -20px 0px 10px -10px #020202;*/
+
+}
+
+#header {
+	padding-top: 60px;
+	position: relative;
+	overflow: hidden;
+}
+#logo {
+	width: 640px;
+	height: 360px;
+	margin: 0 auto;
+	background-image: url("media/logo_trailer.png") no-repeat center center;
+	cursor: pointer;
+	cursor: hand;
+}
+#videocontainer {
+	background:url("media/logo_nohover.png") no-repeat center center;
+	width: 640px;
+	transition:all 0.3s;
+	height: 360px;
+	cursor: pointer;
+	cursor: hand;
+	opacity: 1;
+}
+#videocontainer:hover {
+	background:url("media/logo_hover.png") no-repeat center center;
+	opacity: 1;
+}
+
+#social {
+	width: 600px;
+	margin: 0 auto;
+	margin-top: 20px;
+	font-family: 'Open Sans', sans-serif;
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: bold;
+}
+.button-social {
+	display: block;
+	width: 32px;
+	height: 32px;
+	margin: 0 auto;
+	text-align: center;
+	background-image: url("media/social.png");
+}
+#b-facebook {background-position: 32px 0px;}
+#b-twitter {background-position: 32px 64px;}
+#b-tumblr {background-position: 32px 32px;}
+#b-facebook:hover {background-position: 0px 0px;}
+#b-twitter:hover {background-position: 0px 64px;}
+#b-tumblr:hover {background-position: 0px 32px;}
+
+
+/* Image slider section */
+#sect-trailer {
+	min-height: 480px;
+	/*background-color: #080808;*/
+	padding-top: 40px;
+	position: relative;
+}
+#trailer {
+	width: 640px;
+	margin: 0 auto;
+}
+
+#slider {
+	position: relative;
+	overflow: hidden;
+	margin: 0 auto;
+	padding: 0;
+}
+
+#slider ul {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	height: 360px;
+	list-style: none;
+}
+
+#slider ul li {
+	position: relative;
+	display: block;
+	float: left;
+	margin: 0;
+	padding: 0;
+	width: 640px;
+	height: 360px;
+	background: #ccc;
+	text-align: center;
+	line-height: 300px;
+}
+
+.control_prev, .control_next {
+	z-index: 999;
+	display: block;
+	position: absolute;
+	top:35%;
+
+	background: none;
+	opacity: 0.8;
+	width: 60px;
+	height: 80px;
+
+	text-align: center;
+	line-height: 80px;
+
+	font-size:64pt;
+	font-family: monospace;
+	font-weight: bolder;
+
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+}
+
+.control_prev:hover, .control_next:hover {
+	cursor:pointer;
+	opacity: 1;
+	-webkit-transition: all 0.2s ease;
+
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	font-size:72pt;
+}
+
+.control_prev {
+  left: 80px;
+  border-radius: 0 2px 2px 0;
+}
+
+.control_next {
+  right: 80px;
+  border-radius: 2px 0 0 2px;
+}
+
+/* Purchase section */
+#sect-purchase {
+	min-height: 400px;
+	background-color: #141414;
+	border-top: 2px solid #242424;
+	border-bottom: 4px solid #0c0c0c;
+	border-left: 2px solid #242424;
+	border-right: 2px solid #242424;
+	padding-bottom: 70px;
+	position: relative;
+}
+#steam-wrapper a, #humble-wrapper a {text-decoration: none;}
+#steam-wrapper {
+	margin-top: 50px;
+	height: 160px;
+}
+#steam-button {
+	border-radius: 32px;
+	width: 300px;
+	height: 140px;
+	position: relative;
+	top:0px;
+	margin: 0 auto;
+	background-color: #18273b;
+	background-image: url("media/steam.png");
+	background-size: 50%;
+	background-repeat: no-repeat;
+	background-position: center center;
+	border-bottom: 10px solid #01090e;
+	transition:all 0.1s;
+	box-sizing:initial;
+}
+#steam-button:hover {
+	top:5px;
+	border-bottom: 5px solid #01090e;
+	background-color: #015169;
+}
+#steam-button:active {
+	position: relative;
+	top:10px;
+	border-bottom: 0px solid #01090e;
+}
+#itch-wrapper {
+	margin-top: 5%;
+	height: 160px;
+}
+#itch-button {
+	border-radius: 32px;
+	width: 300px;
+	height: 140px;
+	position: relative;
+	top:0px;
+	margin: 0 auto;
+	background-color: #431518;
+	background-image: url("media/itch.png");
+	background-size: 50%;
+	background-repeat: no-repeat;
+	background-position: center center;
+	border-bottom: 10px solid #110000;
+	transition:all 0.1s;
+	box-sizing:initial;
+}
+#itch-button:hover {
+	top:5px;
+	border-bottom: 5px solid #110000;
+	background-color: #BE2626;
+}
+#itch-button:active {
+	position: relative;
+	top: 10px;
+	border-bottom: 0px solid #110000;
+}
+#humbleEmbed {
+	display: block;
+	width: 550px;
+	margin: 0 auto;
+	margin-top: 100px;
+}
+
+
+#earlyaccess-p {
+	padding-left: 30px;
+	padding-top: 30px;
+}
+#earlyaccess-p p {
+	margin-top: 10px;
+	text-indent: 2em;
+	line-height: 160%;
+}
+
+#earlyaccess-p ul {
+	margin-top: 25px;
+	line-height: 220%;
+}
+#earlyaccess-p ul li {
+	list-style-type:none;
+	list-style-position: outside;
+	/*background-image:url("media/potions/item_0000.png");*/
+	background-repeat: no-repeat;
+	background-position: -4px 0px;
+	padding-left: 30px;
+}
+#eal1 {background-image:url("media/potions/item_0000.png");}
+#eal2 {background-image:url("media/potions/item_0003.png");}
+#eal3 {background-image:url("media/potions/item_0009.png");}
+#eal4 {background-image:url("media/potions/item_0015.png");}
+#eal5 {background-image:url("media/potions/item_0019.png");}
+#eal6 {background-image:url("media/potions/item_0021.png");}
+#eal7 {background-image:url("media/potions/item_0028.png");}
+
+
+/* Progress meter/current task section */
+#sect-progress {
+	min-height: 240px;
+
+	height: 700px;
+}
+#sect-prog-wrapper {
+	width: 90%;
+	margin: 0 auto;
+
+	background-color: #0f131a;
+	border: 3px solid #1d304f;
+
+	padding: 20px;
+
+	height:100%;
+}
+#sect-progress h1 {
+	min-height: 100px;
+}
+#progress-desc {
+	margin-top: 30px;
+	line-height: 160%;
+}
+#meter {
+	width: 320px;
+	height: 24px;
+	margin: 0 auto;
+	margin-top: 15px;
+	/*border:2px solid #ecb510;*/
+	/*background-position: center;*/
+	background-image: url("media/progressbarborder.png");
+}
+#meter-progress {
+	height: 100%;
+	/*background-color: #ecb510;*/
+	background-image:url("media/progressbarbelly.png");
+}
+#progress-list {
+	margin-left: 12%;
+	margin-top: 3%;
+
+}
+#progress-list li {
+	font-size: 18pt;
+}
+
+
+
+/* Devlog section */
+#sect-devlog {
+	/*min-height: 480px;*/
+	/*background-color: #161616;*/
+	/*border-left:2px solid #fff;*/
+	height: 700px;
+}
+#sect-dev-wrapper {
+	width: 90%;
+	margin: 0 auto;
+
+	background-color: #170d0e;
+	border: 3px solid #4c1c21;
+
+	padding: 20px;
+
+	height: 100%;
+}
+#sect-devlog h1 {
+	min-height: 100px;
+}
+#devlog-title {
+	/*border-bottom: 2px solid #fff;*/
+}
+#post h2 {
+	margin-left: 15px;
+}
+#post {
+	padding-left: 15px;
+	/*padding-top: 20px;*/
+}
+#post-body {
+	margin-top: 15px;
+	font-family: 'Open Sans', 'Arial', sans-serif;
+	padding-left: 10px;
+	padding-right: 10px;
+	line-height: 160%;
+}
+/* Youtube embed from tumblr */
+#post-body iframe {
+	float: left;
+	border-bottom: 2px solid #fff;
+	margin-right: 30px;
+	margin-bottom: 30px;
+}
+#post-body iframe:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+/* Post's P tags */
+#post-body p {
+	text-indent: 2em;
+	line-height: 160%;
+	margin-bottom: 1em;
+}
+
+#read-more {
+	margin-top: 15px;
+	font-size: 18pt;
+	display: block;
+}
+
+#sect-progress-devlog {
+	/*background-color: #121212;
+	border-top: 2px solid #242424;
+	border-bottom: 2px solid #242424;*/
+}
+
+
+/* Stream schedule section*/
+#sect-schedule {
+	min-height: 240px;
+	position: relative;
+}
+
+#social-stack {
+	position: fixed;
+	left: 16px;
+	z-index: 10;
+}
+.social-wrapper {
+	height: 96px;
+	width: 96px;
+	margin-bottom: 20px;
+}
+.social-button {
+	border-radius: 16px;
+	width: 90px;
+	height: 90px;
+	top:0px;
+	margin: 0 auto;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 72px 72px;
+	transition:all 0.1s;
+	box-sizing:initial;
+}
+
+#twitch-wrapper {
+	top: 72px;
+}
+#twitch-button {
+	background-color: #7859b4;
+	background-image: url("media/twitch.png");
+	border-bottom: 6px solid #503683;
+}
+#twitch-button:hover {
+	position: relative;
+	top:3px;
+	background-color: #9A7BD5;
+	border-bottom: 3px solid #503683;
+}
+#twitch-button:active {
+	position: relative;
+	top:6px;
+	background-color: #9A7BD5;
+	border-bottom: 0px solid #503683;
+}
+
+#twitter-wrapper {
+	top: 184px;
+}
+#twitter-button {
+	background-color: #247DB7;
+	background-image: url("media/twitter.png");
+	border-bottom: 6px solid #235586;
+}
+#twitter-button:hover {
+	position: relative;
+	top:3px;
+	background-color: #469FD9;
+	border-bottom: 3px solid #235586;
+}
+#twitter-button:active {
+	position: relative;
+	top:6px;
+	background-color: #469FD9;
+	border-bottom: 0px solid #235586;
+}
+
+#tumblr-wrapper {
+	top: 296px;
+}
+#tumblr-button {
+	background-color: #235586;
+	background-image: url("media/tumblr.png");
+	border-bottom: 6px solid #123375;
+}
+#tumblr-button:hover {
+	position: relative;
+	top:3px;
+	background-color: #247DB7;
+	border-bottom: 3px solid #123375;
+}
+#tumblr-button:active {
+	position: relative;
+	top:6px;
+	background-color: #247DB7;
+	border-bottom: 0px solid #123375;
+}
+
+#reddit-wrapper {
+	top: 408px;
+}
+#reddit-button {
+	background-color: #cccccc;
+	background-image: url("media/reddit.png");
+	border-bottom: 6px solid #333333;
+}
+#reddit-button:hover {
+	position: relative;
+	top:3px;
+	background-color: #ffffff;
+	border-bottom: 3px solid #555555;
+}
+#reddit-button:active {
+	position: relative;
+	top:6px;
+	background-color: #ffffff;
+	border-bottom: 0px solid #555555;
+}
+
+
+#next-stream {
+	margin-left: 30px;
+	font-weight: lighter;
+}
+.stream-day {
+	font-size: 24pt;
+	font-family: 'Open Sans', helvetica, arial, sans-serif;
+	text-align: center;
+	opacity: 0.4;
+}
+.stream-desc {
+	text-align: center;
+}
+#stream-container {
+	margin: 0 auto;
+	margin-top: 20px;
+}
+#stream-container:after{
+	content: "";
+	display: table;
+	clear: both;
+}
+.stream {
+	width: 14.25%;
+	height: 100px;
+	float: left;
+}
+.streaming {
+	opacity: 1;
+}
+
+
+/* About */
+#sect-about {
+	margin-bottom: 50px;
+}
+#sect-about h1 {
+	margin: 20px;
+	margin-bottom: 30px;
+}
+#about-pitch {
+	display: block;
+	width: 85%;
+	margin: 0 auto;
+	margin-bottom: 50px;
+	/*text-align: center;*/
+	font-size: 14pt;
+	font-family: 'Open Sans', helvetica, arial, sans-serif;
+	font-weight: lighter;
+	line-height: 160%;
+}
+.about-feature-screen {
+	position: relative;
+	width: 240px;
+	height: 320px;
+	margin: 0 auto;
+	margin-bottom: 15px;
+}
+.about-feature-screen video {
+	width: 100%;
+	height: 100%;
+}
+.animation-indicator {
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	line-height: 320px;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.2);
+
+	z-index: 1;
+}
+.animation-indicator h4 {
+	color: #fff;
+	font-family: 'Open Sans', helvetica, arial, sans-serif;
+	font-size: 24pt;
+}
+/*#f1 {background-image: url("media/screenshots/feature1.png");}
+#f2 {background-image: url("media/screenshots/feature2.png");}
+#f3 {background-image: url("media/screenshots/feature3.png");}*/
+
+.about-feature-desc {
+	display: block;
+	max-width: 240px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+
+
+
+#footer {
+	background-color: #121212;
+	border-top: 2px solid #242424;
+	border-left: 2px solid #242424;
+	border-right: 2px solid #242424;
+}
+
+
+
+
+/* Utility */
+.large {font-size: 36pt;}
+.center {text-align: center;}
+.right {text-align: right;}
+.bold {font-weight: bold;}
+.italic {font-style: italic;}
+.indent {text-indent: 2em;}
+.serif {font-family: 'PT Serif', 'Georgia', serif;}
+.sans {font-family: 'Open Sans', 'Arial', sans-serif;}

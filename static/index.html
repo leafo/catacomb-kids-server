@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!-- saved from url=(0018)http://ckgame.net/ -->
+<html lang="en" data-minimalscrollbar="yes"><style>html::-webkit-scrollbar{display:none !important}body::-webkit-scrollbar{display:none !important}</style><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="shortcut icon" href="http://ckgame.net/favicon.png" type="image/x-icon">
+		<link rel="icon" href="http://ckgame.net/favicon.png" type="image/x-icon">
+
+		<meta charset="utf-8">
+
+		<title>Catacomb Kids</title>
+		<!-- <link href="./index_files/css" rel="stylesheet" type="text/css"> -->
+		<link rel="stylesheet" type="text/css" href="grid.css">
+		<link rel="stylesheet" type="text/css" href="styles.css">
+		<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript">
+		    var embedCode = '<iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/LaHTgdFD4hU?&autoplay=1" frameborder="0" allowfullscreen></iframe>'
+		</script>
+		<script>
+			$.getJSON('https://api.twitch.tv/kraken/streams/FourbitFriday', function(channel) {
+			    if (channel["stream"] == null) {
+			        $("<strong>Dev Streams every Monday, 3-6PM PST!</strong>").appendTo ( "#social" );
+			    } else {
+			        $("<a href='http://www.twitch.tv/fourbitfriday'>Streaming Live on Twitch Now!</a>").appendTo ( "#social" );
+			    }
+			});
+		</script>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+	</head>
+	<body data-speed="5" style="background-position: 50%;">
+		<div id="social-stack">
+			<div id="twitch-wrapper" class="social-wrapper"><a href="http://www.twitch.tv/fourbitfriday"><div id="twitch-button" class="social-button"></div></a></div>
+			<div id="twitter-wrapper"class="social-wrapper"><a href="http://www.twitter.com/fourbitfriday"><div id="twitter-button" class="social-button"></div></a></div>
+			<div id="tumblr-wrapper" class="social-wrapper"><a href="http://blog.ckgame.net"><div id="tumblr-button" class="social-button"></div></a></div>
+			<div id="reddit-wrapper" class="social-wrapper"><a href="http://www.reddit.com/r/catacombkids"><div id="reddit-button" class="social-button"></div></a></div>
+		</div>
+		<div id="container">
+			<div id="social" class="grid"></div>
+			<div id="sect-trailer" class="grid">
+				<span class="control_prev">&lt;</span>
+				<div id="slider" style="width: 640px; height: 360px;">
+					<ul style="width: 3840px; margin-left: -640px;">
+						<li style="background-color: #000000;"><div id="videocontainer" onclick="document.getElementById('videocontainer').innerHTML = embedCode;"/></div></li>
+						<li><img src="media/screenshots/screen_2.png"></li>
+						<li><img src="media/screenshots/screen_3.png"></li>
+						<li><img src="media/screenshots/screen_4.png"></li>
+						<li><img src="media/screenshots/screen_5.png"></li>
+						<li><img src="media/screenshots/screen_6.png"></li>
+					</ul>
+				</div>
+				<span class="control_next">&gt;</span>
+			</div>
+			<div id="sect-purchase" class="grid grid-pad">
+				<div class="col-1-2">
+					<div id="steam-wrapper"><a href="http://store.steampowered.com//app/315840?beta=0" target="_blank"><div id="steam-button"></div></a></div>
+					<div id="itch-wrapper"><a href="http://fourbitfriday.itch.io/catacombkids"><div id="itch-button"></div></a></div>
+				</div>
+				<div id="earlyaccess-p" class="col-1-2">
+					<h2>Now on Early Access!</h2>
+					<ul>
+						<li id="eal1">PC · Mac · Linux</li>
+						<li id="eal2">DRM Free through Itch.io</li>
+						<li id="eal3">Delicious goo</li>
+						<li id="eal4">Regular build updates</li>
+						<li id="eal5">Livestreamed development every Monday</li>
+						<li id="eal6">A community that isn't jerks</li>
+						<li id="eal7">YASD forever</li>
+					</ul>
+				</div>
+			</div>
+			<div id="sect-about" class="grid grid-pad">
+				<h1 class="center large">"A pretty neat game"</h1><p style="text-align: center;">-Someone, probably</p><br>
+				<!-- <p id="about-pitch"><span class="bold">Catacomb Kids</span> is a procedurally generated platformer, with an equal emphasis on quick reactions, tactical engagement, and strategic character growth. Wield swords, spears, axes, and daggers -- unleash powerful magicks to burn, freeze and poison foes with -- overcome traps and beasts both deadly and unrelenting.</p> -->
+				<div class="about-feature col-1-3">
+					<div class="about-feature-screen" id="f1">
+						<div class="animation-indicator">
+							<h4>FIGHT</h4>
+						</div>
+						<video src="media/video/main_11_4.webm" loop="">
+							<p>Your browser does not suppoer .webm video.</p>
+						</video>
+					</div>
+					<p class="about-feature-desc">Catacomb Kids is a roguelike platformer with an emphasis on quick reactions and tactical engagement</p>
+				</div>
+				<div class="about-feature col-1-3">
+					<div class="about-feature-screen" id="f2">
+						<div class="animation-indicator">
+							<h4>BLAST</h4>
+						</div>
+						<video src="media/video/main_11_3.webm" loop="">
+							<p>Your browser does not suppoer .webm video.</p>
+						</video>
+					</div>
+					<p class="about-feature-desc">Wield powerful weapons and magic to burn, freeze and poison foes with</p>
+				</div>
+				<div class="about-feature col-1-3">
+					<div class="about-feature-screen" id="f3">
+						<div class="animation-indicator" style="display: block;">
+							<h4>OUTWIT</h4>
+						</div>
+						<video src="media/video/main_11_1.webm" loop="">
+							<p>Your browser does not suppoer .webm video.</p>
+						</video>
+					</div>
+					<p class="about-feature-desc">Be creative with the environment to overcome traps and beasts both deadly and unrelenting</p>
+				</div>
+			</div>
+
+			<div id="footer" class="grid grid-pad">
+				<p>©FourbitFriday 2015</p>
+			</div>
+		</div>
+
+		<!-- Loaded at the end to accelerate page loading -->
+		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="script.js"></script>
+
+	<div id="scrollrail-vertical" class="" style="width: 11.9875px; border-left-width: 0.998958px;">
+		<div id="scrollbar-vertical" style="visibility: hidden; border-radius: 4.99479px 6.99271px; box-shadow: rgba(255, 255, 255, 0.901961) 0px 0px 0.998958px 0.998958px; height: 278.824px; top: 571.666px; opacity: 0;">
+		</div>
+	</div>
+	<div id="scrollrail-horizontal" class="disabled" style="height: 11.9875px; border-top-width: 0.998958px;">
+		<div id="scrollbar-horizontal" style="visibility: hidden; border-radius: 13.9854px 9.98958px; box-shadow: rgba(255, 255, 255, 0.901961) 0px 0px 0.998958px 0.998958px; width: 1908.01px; left: 1.99792px; opacity: 0;">
+		</div>
+	</div>
+
+</body>
+
+</html>
