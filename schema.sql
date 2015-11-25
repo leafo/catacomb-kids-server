@@ -47,6 +47,7 @@ ALTER TABLE lapis_migrations OWNER TO postgres;
 CREATE TABLE scores (
     id integer NOT NULL,
     raw_data jsonb NOT NULL,
+    ip character varying(255) NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
