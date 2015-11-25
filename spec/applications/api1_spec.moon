@@ -52,3 +52,14 @@ describe "applications.api1", ->
     }
 
     assert_has_error res, "content is not json"
+
+  it "submits score", ->
+    status, res = request "/api/1/save-score", {
+      method: "POST"
+      data: build_jwt { content: "{}" }
+      expect: "json"
+    }
+
+    assert.same { success: true }, res
+
+

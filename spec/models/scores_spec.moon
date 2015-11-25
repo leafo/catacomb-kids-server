@@ -11,6 +11,7 @@ describe "models.scores", ->
 
   it "creates score", ->
     Scores\create {
+      ip: "127.0.0.1"
       raw_data: {
         player_name: "hello world"
       }

@@ -23,8 +23,8 @@ class Api1 extends lapis.Application
 
       Scores\create {
         raw_data: content
-        ip: ngx.var.remote_addr or nil
+        ip: ngx.var.remote_addr
       }
 
-      json: { success: true, :data }
+      json: { success: true }
   }
