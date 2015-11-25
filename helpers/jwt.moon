@@ -42,4 +42,6 @@ parse_jwt = (str) ->
   payload = decode_base64 normalize_b64 payload
   from_json(payload), header
 
-{:parse_jwt, :add_padding}
+
+
+{:parse_jwt, :add_padding, :hmac_sha256}

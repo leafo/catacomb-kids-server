@@ -17,7 +17,9 @@ class Api1 extends lapis.Application
       payload = assert_error parse_jwt data
       content = assert_error payload.content, "missing content"
 
-      from_json content -- assert that it's correctly formatted json
+      local parsed_content
+      pcall -> parsed_content = from_json content
+      assert_error parsed_content, "content is not json"
 
       Scores\create {
         raw_data: content
