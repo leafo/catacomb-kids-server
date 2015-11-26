@@ -109,7 +109,7 @@ describe "helpers.types", ->
 
     -- extra data
     assert.same {true}, {
-      check {
+      check\is_open! {
         color: "red"
         weight: 9
         age: 3
@@ -118,7 +118,7 @@ describe "helpers.types", ->
 
     -- extra data
     assert.same nil, (
-      check\is_exact! {
+      check {
         color: "red"
         weight: 9
         age: 3

@@ -116,14 +116,14 @@ class Shape extends BaseType
     Shape @shape, @clone_opts optional: true
 
   -- don't allow extra fields
-  is_exact: =>
-    Shape @shape, @clone_opts exact: true
+  is_open: =>
+    Shape @shape, @clone_opts open: true
 
   check_value: (value) =>
     return true if @check_optional value
     return nil, "expecting table" unless type(value) == "table"
 
-    remaining_keys = if @opts and @opts.exact
+    remaining_keys = unless @opts and @opts.open
       {key, true for key in pairs value}
 
     for shape_key, shape_val in pairs @shape
