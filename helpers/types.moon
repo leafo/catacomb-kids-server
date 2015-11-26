@@ -157,7 +157,11 @@ class Pattern extends BaseType
   check_value: (value) =>
     return true if @check_optional value
 
+    if initial = @opts and @opts.initial_type
+      return nil, "expected `#{initial}`" unless type(value) == initial
+
     value = tostring value if @opts and @opts.coerce
+
     return nil, "expected string for value" unless type(value) == "string"
 
     if value\match @pattern
@@ -175,7 +179,7 @@ types = setmetatable {
   array: ArrayType!
 
   -- compound
-  integer: Pattern "^%d+$", coerce: true
+  integer: Pattern "^%d+$", coerce: true, initial_type: "number"
 
   -- type constructors
   one_of: OneOf
