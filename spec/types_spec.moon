@@ -51,26 +51,76 @@ describe "helpers.types", ->
         assert.same {true}, {check nil, t}
 
   it "tests one_of", ->
-    check = types.one_of {"a", "b"}
-    check_opt = check\is_optional!
+    ab = types.one_of {"a", "b"}
+    ab_opt = ab\is_optional!
 
-    assert.same nil, (check\check_value "c")
-    assert.same true, (check\check_value "a")
-    assert.same true, (check\check_value "b")
-    assert.same nil, (check\check_value nil)
+    assert.same nil, (ab "c")
+    assert.same true, (ab "a")
+    assert.same true, (ab "b")
+    assert.same nil, (ab nil)
 
-    assert.same nil, (check_opt\check_value "c")
-    assert.same true, (check_opt\check_value "a")
-    assert.same true, (check_opt\check_value "b")
-    assert.same true, (check_opt\check_value nil)
+    assert.same nil, (ab_opt "c")
+    assert.same true, (ab_opt "a")
+    assert.same true, (ab_opt "b")
+    assert.same true, (ab_opt nil)
 
     -- with sub type checkers
-    check = types.one_of { "g", types.number, types.function }
+    misc = types.one_of { "g", types.number, types.function }
 
-    assert.same nil, (check\check_value "c")
-    assert.same true, (check\check_value 2354)
-    assert.same true, (check\check_value ->)
-    assert.same true, (check\check_value "g")
-    assert.same nil, (check\check_value nil)
+    assert.same nil, (misc "c")
+    assert.same true, (misc 2354)
+    assert.same true, (misc ->)
+    assert.same true, (misc "g")
+    assert.same nil, (misc nil)
 
+  it "tests shape", ->
+    check = types.shape { color: "red" }
+    assert.same nil, (check color: "blue")
+    assert.same true, (check color: "red")
+
+    check = types.shape {
+      color: types.one_of {"red", "blue"}
+      weight: types.number
+    }
+
+    -- correct
+    assert.same {true}, {
+      check {
+        color: "blue"
+        weight: 234
+      }
+    }
+
+    -- failed sub type
+    assert.same nil, (
+      check {
+        color: "green"
+        weight: 234
+      }
+    )
+
+    -- missing data
+    assert.same nil, (
+      check {
+        color: "green"
+      }
+    )
+
+    -- extra data
+    assert.same {true}, {
+      check {
+        color: "red"
+        weight: 9
+        age: 3
+      }
+    }
+
+    -- extra data
+    assert.same nil, (
+      check\is_exact! {
+        color: "red"
+        weight: 9
+        age: 3
+      }
+    )
 

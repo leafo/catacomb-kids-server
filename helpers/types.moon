@@ -6,8 +6,17 @@ class BaseType
     return true if BaseType == cls
     @is_base_type cls.__parent
 
+  @__inherited: (cls) =>
+    cls.__base.__call = cls.__call
+
+  check_value: =>
+    error "override me"
+
   check_optional: (value) =>
     value == nil and @opts and @opts.optional
+
+  __call: (...) =>
+    @check_value ...
 
 -- basic type check
 class Type extends BaseType
@@ -21,7 +30,7 @@ class Type extends BaseType
 
     got = type(value)
     if @t != got
-      return nil, "got type #{got}, expected #{@t}"
+      return nil, "got type `#{got}`, expected `#{@t}`"
     true
 
 class ArrayType extends BaseType
@@ -40,7 +49,7 @@ class ArrayType extends BaseType
         return nil, "non number key: #{i}"
 
       unless i == k
-        return nil, "non array index, got #{i} but expected #{k}"
+        return nil, "non array index, got `#{i}` but expected `#{k}`"
 
       k += 1
 
@@ -62,7 +71,50 @@ class OneOf extends BaseType
       if item.check_value and BaseType\is_base_type item
         return true if item\check_value value
 
-    nil, "value did not match one of"
+    err_str = table.concat ["`#{i}`" for i in *@items], ", "
+    nil, "value `#{value}` did not match one of: #{err_str}"
+
+class Shape extends BaseType
+  new: (@shape, @opts) =>
+    assert type(@shape) == "table", "expected table for shape"
+
+  is_optional: =>
+    Shape @shape, optional: true
+
+  -- don't allow extra fields
+  is_exact: =>
+    Shape @shape, exact: true
+
+  check_value: (value) =>
+    return true if @check_optional value
+    return nil, "expecting table" unless type(value) == "table"
+
+    matches = true
+
+    remaining_keys = if @opts and @opts.exact
+      {key, true for key in pairs value}
+
+    for shape_key, shape_val in pairs @shape
+      item_value = value[shape_key]
+
+      if remaining_keys
+        remaining_keys[shape_key] = nil
+
+      continue if shape_val == item_value
+
+      if shape_val.check_value and BaseType\is_base_type shape_val
+        res, err = shape_val\check_value item_value
+
+        unless res
+          return nil, "key `#{shape_key}`: #{err}"
+      else
+        return nil, "key `#{shape_key}` expected `#{shape_val}`"
+
+    if remaining_keys
+      if extra_key = next remaining_keys
+        return nil, "has extra key: `#{extra_key}`"
+
+    matches
 
 types = {
   string: Type "string"
@@ -72,7 +124,10 @@ types = {
   userdata: Type "userdata"
   table: Type "table"
   array: ArrayType!
+
+  -- type constructors
   one_of: OneOf
+  shape: Shape
 }
 
 check = (value, shape) ->
