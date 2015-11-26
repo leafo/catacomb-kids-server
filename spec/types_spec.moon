@@ -138,3 +138,41 @@ describe "helpers.types", ->
     assert.same {true}, {t "123"}
     assert.same nil, (t "2.5")
 
+  it "tests array_of", ->
+    numbers = types.array_of types.number
+
+    assert.same {true}, {numbers {}}
+    assert.same {true}, {numbers {1}}
+    assert.same {true}, {numbers {1.5}}
+    assert.same {true}, {numbers {1.5,2,3,4}}
+
+    assert.same {true}, {numbers\is_optional! nil}
+    assert.same nil, (numbers nil)
+
+    hellos = types.array_of "hello"
+
+    assert.same {true}, {hellos {}}
+    assert.same {true}, {hellos {"hello"}}
+    assert.same {true}, {hellos {"hello", "hello"}}
+
+    assert.same nil, (hellos {"hello", "world"})
+
+    shapes = types.array_of types.shape {
+      color: types.one_of {"orange", "blue"}
+    }
+
+    assert.same {true}, {
+      shapes {
+        {color: "orange"}
+        {color: "blue"}
+        {color: "orange"}
+      }
+    }
+
+    assert.same nil, (
+      shapes {
+        {color: "orange"}
+        {color: "blue"}
+        {color: "purple"}
+      }
+    )

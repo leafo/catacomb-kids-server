@@ -86,6 +86,28 @@ class OneOf extends BaseType
     err_str = table.concat ["`#{i}`" for i in *@items], ", "
     nil, "value `#{value}` did not match one of: #{err_str}"
 
+class ArrayOf extends BaseType
+  new: (@expected, @opts) =>
+
+  is_optional: =>
+    ArrayOf @expected, @clone_opts optional: true
+
+  check_value: (value) =>
+    return true if @check_optional value
+    return nil, "expected table for array_of" unless type(value) == "table"
+
+    for item in *value
+      continue if @expected == item
+
+      if @expected.check_value and BaseType\is_base_type @expected
+        res, err = @expected\check_value item
+        unless res
+          return nil, "item in array does not match: #{err}"
+      else
+        return nil, "item in array does not match `#{@expected}`"
+
+    true
+
 class Shape extends BaseType
   new: (@shape, @opts) =>
     assert type(@shape) == "table", "expected table for shape"
@@ -100,8 +122,6 @@ class Shape extends BaseType
   check_value: (value) =>
     return true if @check_optional value
     return nil, "expecting table" unless type(value) == "table"
-
-    matches = true
 
     remaining_keys = if @opts and @opts.exact
       {key, true for key in pairs value}
@@ -126,7 +146,7 @@ class Shape extends BaseType
       if extra_key = next remaining_keys
         return nil, "has extra key: `#{extra_key}`"
 
-    matches
+    true
 
 class Pattern extends BaseType
   new: (@pattern, @opts) =>
@@ -145,7 +165,7 @@ class Pattern extends BaseType
     else
       nil, "doesn't match pattern `#{@pattern}`"
 
-types = {
+types = setmetatable {
   string: Type "string"
   number: Type "number"
   function: Type "function"
@@ -161,7 +181,9 @@ types = {
   one_of: OneOf
   shape: Shape
   pattern: Pattern
-}
+  array_of: ArrayOf
+}, __index: (fn_name) =>
+  error "Type checker does not exist: `#{fn_name}`"
 
 check = (value, shape) ->
   assert shape.check_value, "missing check_value method from shape"
