@@ -3,6 +3,8 @@ import Model from require "lapis.db.model"
 
 import to_json from require "lapis.util"
 
+import types from require "helpers.types"
+
 -- Generated schema dump: (do not edit)
 --
 -- CREATE TABLE scores (
@@ -17,6 +19,32 @@ import to_json from require "lapis.util"
 --
 class Scores extends Model
   @timestamp: true
+
+  @raw_data_type: types.shape {
+    version_major: types.integer
+    version_minor: types.integer
+    version_patch: types.integer
+
+    version_suffix: types.string\is_optional!
+    player_name: types.string
+
+    base_class: types.one_of {
+      "bully"
+      "convert"
+      "poet"
+      "merchant"
+      "tinkerer"
+      "wanderer"
+    }
+
+    floor_reached: types.integer
+    play_time: types.integer
+    total_kills: types.integer
+    total_gold: types.integer
+    final_score: types.integer
+    daily_run_day: types.string\is_optional!
+    about_kid: types.table
+  }
 
   @create: (opts) =>
     unless type(opts.raw_data) == "string"
