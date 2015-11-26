@@ -135,6 +135,8 @@ class Pattern extends BaseType
     Pattern @pattern, @clone_opts optional: true
 
   check_value: (value) =>
+    return true if @check_optional value
+
     value = tostring value if @opts and @opts.coerce
     return nil, "expected string for value" unless type(value) == "string"
 
@@ -151,6 +153,9 @@ types = {
   userdata: Type "userdata"
   table: Type "table"
   array: ArrayType!
+
+  -- compound
+  integer: Pattern "^%d+$", coerce: true
 
   -- type constructors
   one_of: OneOf

@@ -16,6 +16,7 @@ describe "helpers.types", ->
     {"array", valid: { 1,2,3,4 }, invalid: {hi: "yeah"}, check_errors: false}
     {"array", valid: {}, check_errors: false}
 
+    {"integer", valid: 1234, invalid: "1.1"}
   }
 
   for {type_name, :valid, :invalid, :check_errors} in *basic_types
