@@ -15,6 +15,18 @@ class BaseType
   check_optional: (value) =>
     value == nil and @opts and @opts.optional
 
+  clone_opts: (merge) =>
+    opts = if @opts
+      {k,v for k,v in pairs @opts}
+    else
+      {}
+
+    if merge
+      for k, v in pairs merge
+        opts[k] = v
+
+    opts
+
   __call: (...) =>
     @check_value ...
 
@@ -23,7 +35,7 @@ class Type extends BaseType
   new: (@t, @opts) =>
 
   is_optional: =>
-    Type @t, optional: true
+    Type @t, @clone_opts optional: true
 
   check_value: (value) =>
     return true if @check_optional value
@@ -37,7 +49,7 @@ class ArrayType extends BaseType
   new: (@opts) =>
 
   is_optional: =>
-    ArrayType optional: true
+    ArrayType @clone_opts optional: true
 
   check_value: (value) =>
     return true if @check_optional value
@@ -60,7 +72,7 @@ class OneOf extends BaseType
     assert type(@items) == "table", "expected table for items in one_of"
 
   is_optional: =>
-    OneOf @items, optional: true
+    OneOf @items, @clone_opts optional: true
 
   check_value: (value) =>
     return true if @check_optional value
@@ -79,11 +91,11 @@ class Shape extends BaseType
     assert type(@shape) == "table", "expected table for shape"
 
   is_optional: =>
-    Shape @shape, optional: true
+    Shape @shape, @clone_opts optional: true
 
   -- don't allow extra fields
   is_exact: =>
-    Shape @shape, exact: true
+    Shape @shape, @clone_opts exact: true
 
   check_value: (value) =>
     return true if @check_optional value
@@ -116,6 +128,21 @@ class Shape extends BaseType
 
     matches
 
+class Pattern extends BaseType
+  new: (@pattern, @opts) =>
+
+  is_optional: =>
+    Pattern @pattern, @clone_opts optional: true
+
+  check_value: (value) =>
+    value = tostring value if @opts and @opts.coerce
+    return nil, "expected string for value" unless type(value) == "string"
+
+    if value\match @pattern
+      true
+    else
+      nil, "doesn't match pattern `#{@pattern}`"
+
 types = {
   string: Type "string"
   number: Type "number"
@@ -128,6 +155,7 @@ types = {
   -- type constructors
   one_of: OneOf
   shape: Shape
+  pattern: Pattern
 }
 
 check = (value, shape) ->

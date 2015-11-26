@@ -124,3 +124,16 @@ describe "helpers.types", ->
       }
     )
 
+  it "tests pattern", ->
+    t = types.pattern "^hello"
+
+    assert.same nil, (t 123)
+    assert.same {true}, {t "hellowolr"}
+    assert.same nil, (t "hell")
+
+    t = types.pattern "^%d+$", coerce: true
+
+    assert.same {true}, {t 123}
+    assert.same {true}, {t "123"}
+    assert.same nil, (t "2.5")
+
