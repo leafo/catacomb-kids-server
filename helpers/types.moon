@@ -58,7 +58,7 @@ class ArrayType extends BaseType
     k = 1
     for i,v in pairs value
       unless type(i) == "number"
-        return nil, "non number key: #{i}"
+        return nil, "non number field: #{i}"
 
       unless i == k
         return nil, "non array index, got `#{i}` but expected `#{k}`"
@@ -138,13 +138,13 @@ class Shape extends BaseType
         res, err = shape_val\check_value item_value
 
         unless res
-          return nil, "key `#{shape_key}`: #{err}"
+          return nil, "field `#{shape_key}`: #{err}"
       else
-        return nil, "key `#{shape_key}` expected `#{shape_val}`"
+        return nil, "field `#{shape_key}` expected `#{shape_val}`"
 
     if remaining_keys
       if extra_key = next remaining_keys
-        return nil, "has extra key: `#{extra_key}`"
+        return nil, "has extra field: `#{extra_key}`"
 
     true
 

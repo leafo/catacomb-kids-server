@@ -21,6 +21,8 @@ class Api1 extends lapis.Application
       pcall -> parsed_content = from_json content
       assert_error parsed_content, "content is not json"
 
+      assert_error Scores.raw_data_type parsed_content
+
       Scores\create {
         raw_data: content
         ip: ngx.var.remote_addr

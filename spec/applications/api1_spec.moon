@@ -54,12 +54,44 @@ describe "applications.api1", ->
     assert_has_error res, "content is not json"
 
   it "submits score", ->
+    import to_json from require "lapis.util"
+
+    score = {
+      version_major: 1
+      version_minor: 0
+      version_patch: 0
+
+      floor_reached: 1
+      total_gold: 243
+      play_time: 1234
+      final_score: 999
+      total_kills: 666
+      player_name: "King Doofus"
+      base_class: "bully"
+      about_kid: {}
+    }
+
     status, res = request "/api/1/save-score", {
       method: "POST"
-      data: build_jwt { content: "{}" }
+      data: build_jwt { content: to_json score }
       expect: "json"
     }
 
     assert.same { success: true }, res
 
+  it "fails to submit score with incorrect structure", ->
+    import to_json from require "lapis.util"
 
+    import to_json from require "lapis.util"
+
+    score = {
+      version_major: "hello"
+    }
+
+    status, res = request "/api/1/save-score", {
+      method: "POST"
+      data: build_jwt { content: to_json score }
+      expect: "json"
+    }
+
+    assert.not.same { success: true }, res
