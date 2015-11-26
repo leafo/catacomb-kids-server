@@ -24,9 +24,14 @@ config "production", ->
   port 10006
   code_cache "on"
 
+  systemd {
+    user: true
+  }
+
   postgres {
     database: "catacombkids"
   }
 
   jwt require "secret.jwt"
+
 

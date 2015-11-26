@@ -9,6 +9,9 @@ class Api1 extends lapis.Application
   @path: "/api/1"
 
   "/save-score": capture_errors_json respond_to {
+    GET: =>
+      text: "", layout: false
+
     POST: =>
       import Scores from require "models"
       ngx.req.read_body!
