@@ -3,6 +3,11 @@ import truncate_tables from require "lapis.spec.db"
 
 import Scores from require "models"
 
+i = 0
+next_hash = ->
+  i += 1
+  "hash-#{i}"
+
 describe "models.scores", ->
   use_test_env!
 
@@ -11,6 +16,7 @@ describe "models.scores", ->
 
   it "creates score", ->
     Scores\create {
+      hash: next_hash!
       ip: "127.0.0.1"
       raw_data: {
         player_name: "hello world"
@@ -18,4 +24,6 @@ describe "models.scores", ->
     }
 
     assert.same 1, Scores\count!
+    score = unpack Scores\select!
+    assert.same Scores.environments.default, score.environment
 

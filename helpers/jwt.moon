@@ -40,8 +40,6 @@ parse_jwt = (str) ->
     return nil, "invalid signature"
 
   payload = decode_base64 normalize_b64 payload
-  from_json(payload), header
-
-
+  from_json(payload), header, signature
 
 {:parse_jwt, :add_padding, :hmac_sha256}

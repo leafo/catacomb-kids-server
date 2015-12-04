@@ -19,7 +19,12 @@ import add_column, create_index, drop_index, drop_column, create_table from sche
       {"created_at", time}
       {"updated_at", time}
 
+      {"environment", enum}
+      {"hash", varchar}
+
       "PRIMARY KEY (id)"
     }
+
+    create_index "scores", "environment", "hash", unique: true
 }
 

@@ -49,7 +49,9 @@ CREATE TABLE scores (
     raw_data jsonb NOT NULL,
     ip character varying(255) NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    environment smallint NOT NULL,
+    hash character varying(255) NOT NULL
 );
 
 
@@ -97,6 +99,13 @@ ALTER TABLE ONLY lapis_migrations
 
 ALTER TABLE ONLY scores
     ADD CONSTRAINT scores_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: scores_environment_hash_idx; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX scores_environment_hash_idx ON scores USING btree (environment, hash);
 
 
 --

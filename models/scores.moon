@@ -1,5 +1,5 @@
 db = require "lapis.db"
-import Model from require "lapis.db.model"
+import Model, enum from require "lapis.db.model"
 
 import to_json from require "lapis.util"
 
@@ -19,6 +19,11 @@ import types from require "helpers.types"
 --
 class Scores extends Model
   @timestamp: true
+
+  @environments: enum {
+    default: 1
+    test: 2
+  }
 
   @raw_data_type: types.shape {
     version_major: types.integer
@@ -49,6 +54,8 @@ class Scores extends Model
   @create: (opts) =>
     unless type(opts.raw_data) == "string"
       opts.raw_data = to_json assert opts.raw_data, "missing raw data"
+
+    opts.environment = @environments\for_db opts.environment or "default"
 
     Model.create @, opts
 
