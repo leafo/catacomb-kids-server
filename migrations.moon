@@ -26,5 +26,7 @@ import add_column, create_index, drop_index, drop_column, create_table from sche
     }
 
     create_index "scores", "environment", "hash", unique: true
+    create_index "scores", "environment", "created_at"
+    create_index "scores", "environment", "id"
 }
 

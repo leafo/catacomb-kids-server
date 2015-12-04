@@ -102,10 +102,24 @@ ALTER TABLE ONLY scores
 
 
 --
+-- Name: scores_environment_created_at_idx; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scores_environment_created_at_idx ON scores USING btree (environment, created_at);
+
+
+--
 -- Name: scores_environment_hash_idx; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE UNIQUE INDEX scores_environment_hash_idx ON scores USING btree (environment, hash);
+
+
+--
+-- Name: scores_environment_id_idx; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scores_environment_id_idx ON scores USING btree (environment, id);
 
 
 --
