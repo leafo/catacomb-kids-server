@@ -1,8 +1,13 @@
 lapis = require "lapis"
 
-import capture_errors_json, respond_to, assert_error from require "lapis.application"
+import respond_to, assert_error from require "lapis.application"
 import parse_jwt from require "helpers.jwt"
 import from_json from require "lapis.util"
+
+capture_errors_json = (fn) ->
+  capture_errors fn, => {
+    json: { errors: @errors }, status: 403
+  }
 
 class Api1 extends lapis.Application
   @name: "api."
