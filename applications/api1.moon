@@ -1,6 +1,7 @@
 lapis = require "lapis"
 
 import capture_errors, respond_to, assert_error from require "lapis.application"
+import assert_valid from require "lapis.validate"
 import parse_jwt from require "helpers.jwt"
 import from_json from require "lapis.util"
 
@@ -22,6 +23,10 @@ class Api1 extends lapis.Application
       ngx.req.read_body!
       data = assert ngx.req.get_body_data!
 
+      assert_valid @params, {
+        {"environment", optional: true, one_of: {"test"}}
+      }
+
       payload, _, signature = assert_error parse_jwt data
       content = assert_error payload.content, "missing content"
 
@@ -36,6 +41,7 @@ class Api1 extends lapis.Application
         return json: { errors: {err} }, status: 400
 
       Scores\create {
+        environment: @params.environment
         hash: signature
         raw_data: content
         ip: ngx.var.remote_addr

@@ -15,6 +15,21 @@ build_jwt = (data, secret) ->
   right = encode_base64 hmac_sha256 secret, left
   "#{left}.#{right}"
 
+valid_score = {
+  version_major: 1
+  version_minor: 0
+  version_patch: 0
+
+  floor_reached: 1
+  total_gold: 243
+  play_time: 1234
+  final_score: 999
+  total_kills: 666
+  player_name: "King Doofus"
+  base_class: "bully"
+  about_kid: {}
+}
+
 describe "applications.api1", ->
   use_test_server!
 
@@ -59,29 +74,32 @@ describe "applications.api1", ->
   it "submits score", ->
     import to_json from require "lapis.util"
 
-    score = {
-      version_major: 1
-      version_minor: 0
-      version_patch: 0
-
-      floor_reached: 1
-      total_gold: 243
-      play_time: 1234
-      final_score: 999
-      total_kills: 666
-      player_name: "King Doofus"
-      base_class: "bully"
-      about_kid: {}
-    }
-
     status, res = request "/api/1/save-score", {
       method: "POST"
-      data: build_jwt { content: to_json score }
+      data: build_jwt { content: to_json valid_score }
       expect: "json"
     }
 
     assert.same 200, status
     assert.same { success: true }, res
+
+    score = assert unpack Scores\select!
+    assert.same score.environment, Scores.environments.default
+
+  it "submits score with test environment", ->
+    import to_json from require "lapis.util"
+
+    status, res = request "/api/1/save-score?environment=test", {
+      method: "POST"
+      data: build_jwt { content: to_json valid_score }
+      expect: "json"
+    }
+
+    assert.same 200, status
+    assert.same { success: true }, res
+
+    score = assert unpack Scores\select!
+    assert.same score.environment, Scores.environments.test
 
   it "fails to submit score with incorrect structure", ->
     import to_json from require "lapis.util"
