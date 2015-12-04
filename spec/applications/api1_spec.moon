@@ -127,7 +127,7 @@ describe "applications.api1", ->
       }
 
       assert.same 200, status
-      assert.same { scores: {}}, res
+      assert.same { page: 1, scores: {}}, res
 
     it "gets list with scores", ->
       for i=1,3
@@ -139,9 +139,12 @@ describe "applications.api1", ->
       }
 
       assert.same 200, status
-      assert.same { scores: {
-        {player_name: "hello world"}
-        {player_name: "hello world"}
-        {player_name: "hello world"}
-      }}, res
+      assert.same {
+        page: 1
+        scores: {
+          {player_name: "hello world"}
+          {player_name: "hello world"}
+          {player_name: "hello world"}
+        }
+      }, res
 

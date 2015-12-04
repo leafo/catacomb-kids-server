@@ -25,10 +25,12 @@ class Api1 extends lapis.Application
       pager = Scores\paginated "
         where environment = ? order by id desc
       ", Scores.environments.default
-      scores = pager\get_page @params.page or 1
+      page = @params.page or 1
+      scores = pager\get_page page
 
       json: {
         scores: [score\parse_data! for score in *scores]
+        page: page
       }
   }
 
