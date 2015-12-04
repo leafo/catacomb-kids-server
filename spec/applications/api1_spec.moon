@@ -33,6 +33,7 @@ describe "applications.api1", ->
       expect: "json"
     }
 
+    assert.same 403, status
     assert_has_error res, "invalid base64"
 
   it "attempts to submit with invalid secret", ->
@@ -42,6 +43,7 @@ describe "applications.api1", ->
       expect: "json"
     }
 
+    assert.same 403, status
     assert_has_error res, "invalid signature"
 
   it "attempts to submit with invalid content", ->
@@ -51,6 +53,7 @@ describe "applications.api1", ->
       expect: "json"
     }
 
+    assert.same 400, status
     assert_has_error res, "content is not json"
 
   it "submits score", ->
@@ -77,6 +80,7 @@ describe "applications.api1", ->
       expect: "json"
     }
 
+    assert.same 200, status
     assert.same { success: true }, res
 
   it "fails to submit score with incorrect structure", ->
@@ -94,4 +98,5 @@ describe "applications.api1", ->
       expect: "json"
     }
 
+    assert.same 400, status
     assert.not.same { success: true }, res

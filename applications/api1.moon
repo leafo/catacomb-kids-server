@@ -1,6 +1,6 @@
 lapis = require "lapis"
 
-import respond_to, assert_error from require "lapis.application"
+import capture_errors, respond_to, assert_error from require "lapis.application"
 import parse_jwt from require "helpers.jwt"
 import from_json from require "lapis.util"
 
@@ -27,9 +27,13 @@ class Api1 extends lapis.Application
 
       local parsed_content
       pcall -> parsed_content = from_json content
-      assert_error parsed_content, "content is not json"
 
-      assert_error Scores.raw_data_type parsed_content
+      success, err = parsed_content, "content is not json"
+      if success
+        success, err =  Scores.raw_data_type parsed_content
+
+      unless success
+        return json: { errors: {err} }, status: 400
 
       Scores\create {
         raw_data: content
