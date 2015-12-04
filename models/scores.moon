@@ -59,3 +59,7 @@ class Scores extends Model
 
     Model.create @, opts
 
+
+  parse_data: =>
+    import from_json from require "lapis.util"
+    from_json @raw_data

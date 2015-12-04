@@ -14,6 +14,24 @@ class Api1 extends lapis.Application
   @name: "api."
   @path: "/api/1"
 
+  "/list": capture_errors_json respond_to {
+    GET: =>
+      import Scores from require "models"
+
+      assert_valid @params, {
+        {"page", optional: true, is_integer: true}
+      }
+
+      pager = Scores\paginated "
+        where environment = ? order by id desc
+      ", Scores.environments.default
+      scores = pager\get_page @params.page or 1
+
+      json: {
+        scores: [score\parse_data! for score in *scores]
+      }
+  }
+
   "/save-score": capture_errors_json respond_to {
     GET: =>
       text: "", layout: false
